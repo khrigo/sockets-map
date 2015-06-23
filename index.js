@@ -34,7 +34,7 @@ jQuery(function($) {
                                 setTimeout(function() {
                                     Markers.add({
                                         id: item.point.id,
-                                        description: item.point.name + ":\n" + item.point.description,
+                                        description: item.point.name + "\n" + item.point.description,
                                         lat: item.point.location.lat,
                                         lng: item.point.location.lng
                                     });
