@@ -47,6 +47,7 @@ jQuery(function($) {
         }, 100));
 
         //  TODO: geolocate(); получние геолокации
+        
         $body.addClass('page_init_yes');
     }
 
