@@ -1,0 +1,18 @@
+html,
+body,
+#map-canvas {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.load {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.load__h1 {
+  color: #000;
+}
+.page_init_yes .load {
+  display: none;
+}

@@ -1,0 +1,22 @@
+{"response":
+	{"items":[
+		{"point":{
+			"id":"1",
+			"name":"test",
+			"description":"description",
+			"location":{
+				"lat":50.472245394338,
+				"lng":30.51795423030853
+			}}
+		},
+		{"point":{
+			"id":"2",
+			"name":"test 2",
+			"description":"description 2",
+			"location":{
+				"lat":50.422241394138,
+				"lng":30.4991423030153
+			}}
+		}
+	]}
+}
