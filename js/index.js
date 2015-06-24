@@ -1,6 +1,7 @@
 jQuery(function($) {
     var map, userPosition, CreatePoint, Markers, 
         $body = $('body');
+        $('#createPopup').hide();
 
     function initialize() {
         var i,
@@ -65,8 +66,6 @@ jQuery(function($) {
     Markers = {
         cache: {},
         infoWindow: null,
-
-        // TODO: Кнопка "добавить розетку"
         
         add: function(data) {
             var marker,
@@ -107,6 +106,90 @@ jQuery(function($) {
             }));
         }
     };
+
+        CreatePoint = {
+        active: false,
+        marker: null,
+        infowindow: null,
+
+        changeState: function() {
+            this.active ? this.hide() : this.show();
+        },
+
+        show: function() {
+            var that = this;
+
+            if (this.active) {
+                return;
+            }
+
+            this.active = true;
+
+            this.marker = new google.maps.Marker({
+                map: map,
+                position: userPosition,
+                draggable: true
+            });
+
+            if (!this.infowindow) {
+                this.infowindow = new google.maps.InfoWindow({
+                    content: $('#createPopup').html()
+                });
+
+                google.maps.event.addListener(this.infowindow, 'domready', function() {
+                    $('.add-popup > form').unbind('submit').submit(function(e) {
+                        e.preventDefault();
+
+                        var $this = $(this),
+                            position = that.marker.getPosition(),
+                            val = $this.find('textarea').val();
+
+                        $this.find('.add-popup__error').hide();
+                        $this.find('input').attr('disabled', 'disabled');
+
+                        $.ajax({
+                            url: '//formspree.io/me@khrigo.ru',
+                            type: 'POST',
+                            data: {lat: position.lat(), lng: position.lng(), description: val},
+                            dataType: "json",
+                            success: function(data) {
+                                // TODO: Сказать спасибо
+                                that.hide();
+                            },
+                            error: function(data) {
+                                $this.find('input').removeAttr('disabled');
+                                $this.find('.add-popup__error').show().text('Произошла ошибка. Попробуйте позже');
+                            }
+                        });
+
+                        return false;
+                    });
+                });
+            }
+
+            this.infowindow.open(map, this.marker);
+
+            google.maps.event.addListener(this.infowindow, 'closeclick', function() {
+                that.hide();
+            });
+
+            $('.add-button').addClass('button_active_yes');
+        },
+
+        hide: function() {
+            if (!this.active) {
+                return;
+            }
+
+            this.active = false;
+            this.marker.setMap(null);
+            $('.add-button').removeClass('button_active_yes');
+        }
+    };
+
+    $('.add-button').click(function() {
+        CreatePoint.changeState();
+    });
 
     userPosition = new google.maps.LatLng(50.45015, 30.52651); // Нчальные координаты
     google.maps.event.addDomListener(window, 'load', initialize);
