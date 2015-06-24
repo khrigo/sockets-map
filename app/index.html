@@ -3,7 +3,7 @@
 <head>
     <title>Карта розеток</title>
     <link rel="shortcut icon" href="favicon.ico"/>
-    <link rel="stylesheet" href="css/common.css?v=1" media="all"/>
+    <link rel="stylesheet" href="css/common.css?v=2" media="all"/>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -23,13 +23,24 @@
 
     <div id="map-canvas"></div>
 
-    <!--div class="button">Добавить розетку</div-->
+    <div class="button add-button btn-default btn-sm">Добавить розетку</div>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.debounce-1.0.5.js"></script>
     <script src="js/index.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
+    <div id="createPopup">
+        <div class="add-popup">
+            <form class="form-horizontal" method="post" action="#">
+                <p class="add-popup__title">Добавить новую розетку</p>
+                <p class="add-popup__error"></p>
+                <textarea class="form-control" name="description" placeholder="Подскажите нам как найти эту розетку"></textarea>
+                <input class="btn btn-default btn-xs pull-left" type="submit" value="Создать">
+            </form>
+        </div>
+    </div>
 </body>
 </html>
 
