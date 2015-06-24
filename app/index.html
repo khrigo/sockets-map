@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Карта розеток</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="css/common.css?v=2" media="all"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="load">
+        <div class="load__wrp">
+            <h1 class="load__h1">Загрузка...</h1>
+        </div>
+    </div>
+
+    <div id="map-canvas"></div>
+
+    <div class="button add-button btn-default btn-sm">Добавить розетку</div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.debounce-1.0.5.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <div id="createPopup">
+        <div class="add-popup">
+            <form class="form-horizontal" method="post" action="#">
+                <p class="add-popup__title" style="padding-top:5px;">Добавить новую розетку</p>
+                <p class="add-popup__error"></p>
+                <textarea class="form-control" name="description" placeholder="Подскажите нам название заведения и как найти эту розетку"></textarea>
+                <input class="btn btn-default btn-xs pull-left" style="padding: 5px 10px;" type="submit" value="Добавить">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+html,
+body,
+#map-canvas {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.add-popup {
+  width: 300px;
+  margin-bottom: 18px;
+}
+.add-popup p {
+  margin: 0 10px;
+  padding: 0 0 5px;
+}
+.add-popup__error {
+  display: none;
+  color: red;
+}
+.add-popup textarea {
+  width: 280px;
+  display: block;
+  margin: 5px 10px;
+}
+.add-popup input {
+  float: right;
+}
+.add-button {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  margin: 5px;
+  min-width: 80px;
+  text-align: center;
+  color: #000;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 11px;
+  background-color: #FFF;
+  padding: 1px 6px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.14902);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+  font-weight: 500;
+}
+.add-button:hover {
+  background-color: #ebebeb;
+}
+.btn-xs {
+  margin-left: 10px;
+}
+.load {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.load__h1 {
+  color: #000;
+}
+.page_init_yes .add-button {
+  display: block;
+}
+.page_init_yes .load {
+  display: none;
+}
