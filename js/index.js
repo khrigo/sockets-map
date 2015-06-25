@@ -47,8 +47,18 @@ jQuery(function($) {
             
         }, 100));
 
-        //  TODO: geolocate(); получние геолокации
+        // geolocate();
         $body.addClass('page_init_yes');
+    }
+
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.setCenter(userPosition);
+                map.setZoom(18);
+            });
+        }
     }
 
     function escapeHTML(str) {
