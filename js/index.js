@@ -290,6 +290,6 @@ jQuery(function($) {
         CreatePoint.changeState();
     });
 
-    userPosition = new google.maps.LatLng(50.45015, 30.52651); // Нчальные координаты
+    userPosition = new google.maps.LatLng(50.45015, 30.52651); // Начальные координаты
     google.maps.event.addDomListener(window, 'load', initialize);
 });
