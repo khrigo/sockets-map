@@ -1,5 +1,5 @@
 jQuery(function($) {
-    var map, userPosition, CreatePoint, Markers, 
+    var map, userPosition, CreatePoint, Markers,
         $body = $('body');
         $('#createPopup').hide();
 
@@ -40,14 +40,14 @@ jQuery(function($) {
                                         lng: item.point.location.lng
                                     });
                                 }, 100 * k);
-                            
+
                     });
                 }
             });
-            
+
         }, 100));
 
-        // geolocate();
+        geolocate();
         $body.addClass('page_init_yes');
     }
 
@@ -56,14 +56,100 @@ jQuery(function($) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 map.setCenter(userPosition);
-                map.setZoom(18);
+                map.setZoom(13);
+
+                google.maps.event.addListener(map, 'bounds_changed', $.debounce(function() {
+                    var sw = map.getBounds().getSouthWest(),
+                        ne = map.getBounds().getNorthEast(),
+                        center = map.getCenter();
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://api.foursquare.com/v2/venues/explore',
+                    data: {
+                        ll: position.coords.latitude + ',' + position.coords.longitude,
+                        limit: 50,
+                        query: 'розетка',
+                        client_id: 'P2DSBZNKW20EEZ5YDS211O2UBWDDQHFYVMXA5DRMYG5SXZUY',
+                        client_secret: 'GEHQPGZPNIZ20OQ5115E4VSLMP2G3WENAX5KTIM3FISUWHT1',
+                        v: 20140605
+                    },
+                    dataType: "jsonp",
+                    success: function(response) {
+                      position.coords.latitude
+                        var items;
+
+                        if (response && response.response && response.response.groups && response.response.groups[0] &&
+                            response.response.groups[0].items) {
+
+                            items = response.response.groups[0].items;
+                            items.forEach(function(item, k) {
+                                if (item.venue && item.venue.name && item.venue.location && item.venue.location.lat && item.venue.location.lng && item.tips && item.tips[0]) {
+
+                                    setTimeout(function() {
+                                        Markers.add({
+                                            id: item.venue.id,
+                                            description: item.venue.name + "\n" + item.tips[0].text,
+                                            lat: item.venue.location.lat,
+                                            lng: item.venue.location.lng
+                                        });
+
+                                    }, 100 * k);
+                                }
+                            });
+                        }
+                    }
+                });
+
+                Markers = {
+                    cache: {},
+                    infoWindow: null,
+
+                    add: function(data) {
+                        var marker,
+                            that = this,
+                            cacheKey = data.src + '_' + data.id;
+
+                        if (!this.cache.hasOwnProperty(cacheKey)) {
+                            marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(data.lat, data.lng),
+                                map: map,
+                                icon: image
+                            });
+
+                            google.maps.event.addListener(marker, 'click', function() {
+                                that.showHint(cacheKey);
+                            });
+
+                            data.marker = marker;
+                            this.cache[cacheKey] = data;
+                        }
+                    },
+
+                    showHint: function(cacheKey) {
+                        var data;
+
+                        if (this.cache.hasOwnProperty(cacheKey)) {
+                            data = this.cache[cacheKey];
+
+                            this.getInfoWindow().setContent(escapeHTML(data.description).replace("\n", "<br />"));
+                            this.getInfoWindow().open(map, data.marker);
+                        }
+                      },
+                      getInfoWindow: function() {
+                          return this.infoWindow || (this.infoWindow = new google.maps.InfoWindow({
+                              content: 'test'
+                          }));
+                      }
+                    };
+
+              }, 100));
+
             });
         }
     }
 
     function escapeHTML(str) {
         return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        // 4sq
     }
 
     var image = {
@@ -73,10 +159,11 @@ jQuery(function($) {
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(24, 24)
     };
+
     Markers = {
         cache: {},
         infoWindow: null,
-        
+
         add: function(data) {
             var marker,
                 that = this,
