@@ -115,6 +115,7 @@ jQuery(function($) {
                                 map: map,
                                 icon: image
                             });
+                            // Анимация
 
                             google.maps.event.addListener(marker, 'click', function() {
                                 that.showHint(cacheKey);
@@ -250,12 +251,13 @@ jQuery(function($) {
                             data: {lat: position.lat(), lng: position.lng(), description: val},
                             dataType: "json",
                             success: function(data) {
-                                // TODO: Сказать спасибо
                                 that.hide();
+                                alert('Спасибо! Мы обязательно проверим и добавим Вашу розетку на карту.');
+                                // TODO: Сказать нормальное спасибо. Чистить форму.
                             },
                             error: function(data) {
                                 $this.find('input').removeAttr('disabled');
-                                $this.find('.add-popup__error').show().text('Произошла ошибка. Попробуйте позже');
+                                $this.find('.add-popup__error').show().text('Произошла ошибка. Попробуйте позже.');
                             }
                         });
 
