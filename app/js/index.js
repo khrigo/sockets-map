@@ -255,7 +255,7 @@ jQuery(function($) {
                                 $this.find('textarea').val('');
                                 $this.find('input').removeAttr('disabled');
                                 alert('Спасибо! Мы обязательно проверим и добавим Вашу розетку на карту.');
-+                               // TODO: Сказать нормальное спасибо
+                                // TODO: Сказать нормальное спасибо
                             },
                             error: function(data) {
                                 $this.find('input').removeAttr('disabled');
