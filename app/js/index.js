@@ -252,8 +252,10 @@ jQuery(function($) {
                             dataType: "json",
                             success: function(data) {
                                 that.hide();
+                                $this.find('textarea').val('');
+                                $this.find('input').removeAttr('disabled');
                                 alert('Спасибо! Мы обязательно проверим и добавим Вашу розетку на карту.');
-+                               // TODO: Сказать нормальное спасибо. Чистить форму.
++                               // TODO: Сказать нормальное спасибо
                             },
                             error: function(data) {
                                 $this.find('input').removeAttr('disabled');
