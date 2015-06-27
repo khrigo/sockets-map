@@ -100,53 +100,53 @@ jQuery(function($) {
                     }
                 });
 
-                Markers = {
-                    cache: {},
-                    infoWindow: null,
-
-                    add: function(data) {
-                        var marker,
-                            that = this,
-                            cacheKey = data.src + '_' + data.id;
-
-                        if (!this.cache.hasOwnProperty(cacheKey)) {
-                            marker = new google.maps.Marker({
-                                position: new google.maps.LatLng(data.lat, data.lng),
-                                map: map,
-                                icon: image
-                            });
-                            // Анимация
-
-                            google.maps.event.addListener(marker, 'click', function() {
-                                that.showHint(cacheKey);
-                            });
-
-                            data.marker = marker;
-                            this.cache[cacheKey] = data;
-                        }
-                    },
-
-                    showHint: function(cacheKey) {
-                        var data;
-
-                        if (this.cache.hasOwnProperty(cacheKey)) {
-                            data = this.cache[cacheKey];
-
-                            this.getInfoWindow().setContent(escapeHTML(data.description).replace("\n", "<br />"));
-                            this.getInfoWindow().open(map, data.marker);
-                        }
-                      },
-                      getInfoWindow: function() {
-                          return this.infoWindow || (this.infoWindow = new google.maps.InfoWindow({
-                              content: 'test'
-                          }));
-                      }
-                    };
-
               }, 100));
 
             });
         }
+
+        Markers = {
+            cache: {},
+            infoWindow: null,
+
+            add: function(data) {
+                var marker,
+                    that = this,
+                    cacheKey = data.src + '_' + data.id;
+
+                if (!this.cache.hasOwnProperty(cacheKey)) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(data.lat, data.lng),
+                        map: map,
+                        icon: image,
+                        animation: google.maps.Animation.DROP
+                    });
+
+                    google.maps.event.addListener(marker, 'click', function() {
+                        that.showHint(cacheKey);
+                    });
+
+                    data.marker = marker;
+                    this.cache[cacheKey] = data;
+                }
+            },
+
+            showHint: function(cacheKey) {
+                var data;
+
+                if (this.cache.hasOwnProperty(cacheKey)) {
+                    data = this.cache[cacheKey];
+
+                    this.getInfoWindow().setContent(escapeHTML(data.description).replace("\n", "<br />"));
+                    this.getInfoWindow().open(map, data.marker);
+                }
+              },
+              getInfoWindow: function() {
+                  return this.infoWindow || (this.infoWindow = new google.maps.InfoWindow({
+                      content: 'test'
+                  }));
+              }
+            };
     }
 
     function escapeHTML(str) {
