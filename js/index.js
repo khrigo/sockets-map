@@ -100,7 +100,12 @@ jQuery(function($) {
                     }
                 });
 
-                Markers = {
+              }, 100));
+
+            });
+        }
+
+        Markers = {
                     cache: {},
                     infoWindow: null,
 
@@ -113,9 +118,9 @@ jQuery(function($) {
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(data.lat, data.lng),
                                 map: map,
-                                icon: image
+                                icon: image,
+                                animation: google.maps.Animation.DROP
                             });
-                            // Анимация
 
                             google.maps.event.addListener(marker, 'click', function() {
                                 that.showHint(cacheKey);
@@ -142,11 +147,6 @@ jQuery(function($) {
                           }));
                       }
                     };
-
-              }, 100));
-
-            });
-        }
     }
 
     function escapeHTML(str) {
